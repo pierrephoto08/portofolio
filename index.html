@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Pierre Gallois – Photographe</title>
+<style>
+:root{--ink:#1d1d1f;--soft:#86868b;--accent:#0071e3;--display:"SF Pro Display","Inter","-apple-system","Helvetica Neue",sans-serif;--text:"Inter","-apple-system","Helvetica Neue",sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:#f5f5f7;color:var(--ink);font:400 1.05rem/1.6 var(--text);overflow-x:hidden;letter-spacing:-0.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
+section{padding:clamp(5rem,12vw,9rem) 0;scroll-margin-top:3rem}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#f5f5f7}
+.bg i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:drift 25s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:50vw;height:50vw;background:#dbeafe;left:-10vw;top:-10vw}
+.bg i:nth-child(2){width:45vw;height:45vw;background:#fce7f3;right:-5vw;top:20vh;animation-delay:-8s}
+.bg i:nth-child(3){width:40vw;height:40vw;background:#e0f2fe;left:15vw;bottom:-10vw;animation-delay:-15s}
+@keyframes drift{to{transform:translate(6vw,8vh) scale(1.1)}}
+.glass{position:relative;border-radius:24px;background:rgba(255, 255, 255, 0.65);-webkit-backdrop-filter:blur(30px) saturate(1.8);backdrop-filter:blur(30px) saturate(1.8);border:1px solid rgba(255, 255, 255, 0.8);box-shadow:0 20px 40px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);transition:transform .4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .4s cubic-bezier(0.16, 1, 0.3, 1)}
+.glass:hover{transform:translateY(-3px);box-shadow:0 30px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1)}
+#welcomeScreen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:rgba(245, 245, 247, 0.75);-webkit-backdrop-filter:blur(40px) saturate(2);backdrop-filter:blur(40px) saturate(2);transition:opacity .6s ease, visibility .6s ease;padding:2rem}
+#welcomeScreen.fade-out{opacity:0;visibility:hidden}
+.welcome-card{max-width:480px;width:100%;padding:3rem 2.5rem;text-align:center;border-radius:36px;background:rgba(255, 255, 255, 0.8);border:1px solid rgba(255, 255, 255, 0.95);box-shadow:0 30px 60px rgba(0,0,0,0.12)}
+.welcome-card h2{font:700 2rem var(--display);margin-bottom:1rem;letter-spacing:-0.02em}
+.welcome-card p{color:var(--soft);font-size:1.05rem;margin-bottom:2rem;line-height:1.5}
+.camera-icon{font-size:3rem;margin-bottom:1rem;display:inline-block;animation:bounce 2s infinite ease-in-out}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+nav{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:.4rem;padding:.35rem;border-radius:98px;background:rgba(255, 255, 255, 0.75);-webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);border:1px solid rgba(255, 255, 255, 0.8);box-shadow:0 10px 30px rgba(0,0,0,0.05)}
+nav a,nav .dd>button{all:unset;cursor:pointer;padding:.5rem 1.1rem;border-radius:98px;font-weight:500;font-size:.9rem;transition:background .2s, color .2s}
+nav a:hover,nav .dd>button:hover,nav .dd:focus-within>button{background:rgba(0,0,0,0.04)}
+nav a.cta{background:var(--accent);color:#fff;font-weight:600}
+nav a.cta:hover{background:#0077ed}
+.dd{position:relative}
+.menu{position:absolute;top:calc(100% + .8rem);left:0;min-width:190px;padding:.5rem;display:grid;gap:.1rem;opacity:0;visibility:hidden;transform:translateY(-8px) scale(0.96);transform-origin:top left;transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);background:rgba(255,255,255,0.85);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);border-radius:18px;border:1px solid rgba(255,255,255,0.9);box-shadow:0 20px 40px rgba(0,0,0,0.08)}
+.dd:hover .menu,.dd.open .menu,.dd:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.menu a{display:block;border-radius:10px;padding:.5rem .8rem}
+.menu a:hover{background:rgba(0,113,227,0.08);color:var(--accent)}
+.hero{min-height:92svh;display:grid;align-content:center;padding:8rem 0 4rem}
+.vf{position:relative;padding:clamp(2rem,6vw,4rem);border-radius:32px;background:rgba(255,255,255,0.4);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.6)}
+h1{font:700 clamp(3.2rem,12vw,8.5rem)/0.95 var(--display);letter-spacing:-0.03em;color:var(--ink);opacity:0;transform:translateY(20px);transition:all 1s cubic-bezier(0.16, 1, 0.3, 1)}
+.on h1{opacity:1;transform:none}
+.chip{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.4rem 1rem;border-radius:98px;font-weight:600;font-size:.85rem;color:var(--accent);background:rgba(0,113,227,0.08);opacity:0;transition:opacity .8s .4s}
+.on .chip{opacity:1}
+.chip::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--accent)}
+.pitch{max-width:34rem;font-size:clamp(1.1rem,1.8vw,1.3rem);margin-top:1.5rem;color:var(--soft);opacity:0;transform:translateY(15px);transition:all 0.9s .6s}
+.on .pitch{opacity:1;transform:none}
+.btns{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;opacity:0;transition:opacity .9s .8s}
+.on .btns{opacity:1}
+.btn{display:inline-block;text-decoration:none;font-weight:600;padding:.85rem 1.6rem;border-radius:98px;transition:all .3s;cursor:pointer}
+.btn.main{background:var(--accent);color:#fff}
+.btn.main:hover{background:#0077ed;transform:scale(1.02)}
+.btn.glass{background:rgba(255,255,255,0.8);border:1px solid rgba(0,0,0,0.08)}
+.btn.glass:hover{background:#fff;transform:scale(1.02)}
+h2{font:700 clamp(2.0rem,4.5vw,3rem)/1.1 var(--display);letter-spacing:-0.02em;margin-bottom:.8rem}
+.lead{color:var(--soft);max-width:32rem;margin-bottom:3rem;font-size:1.05rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.tile{display:block;text-decoration:none;padding:.8rem}
+.tile .cover{aspect-ratio:4/5;border-radius:18px;overflow:hidden;display:grid;place-items:center;color:#fff;text-align:center;font-size:.85rem}
+.tile .cover img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)}
+.tile:hover .cover img{transform:scale(1.06)}
+.tile h3{font:600 1.15rem var(--display);padding:1rem .5rem .2rem;display:flex;justify-content:space-between;align-items:baseline}
+.tile h3 span{font-size:.85rem;color:var(--accent);font-weight:500}
+.tile p{padding:0 .5rem .6rem;color:var(--soft);font-size:.85rem}
+#apropos{margin-top:4rem}
+#contact{padding-top:6rem}
+.tarifs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-top:2rem}
+.tarif-card{padding:2.5rem;border-radius:28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.9)}
+.tarif-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:6px;background:var(--accent);opacity:0.8}
+.tarif-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem}
+.tarif-card h3{font:700 1.4rem var(--display);color:var(--ink)}
+.tarif-price{font:700 1.8rem var(--display);color:var(--accent)}
+.tarif-desc{color:var(--soft);font-size:1rem;margin-bottom:1.5rem;line-height:1.5}
+.tarif-detail{padding:1rem 1.2rem;background:rgba(0,113,227,0.04);border-radius:14px;font-size:.9rem;color:var(--ink);border-left:3px solid var(--accent);margin-bottom:2rem}
+.tarif-btn{align-self:flex-start;text-decoration:none;font-weight:600;font-size:.9rem;padding:.7rem 1.4rem;border-radius:98px;background:var(--accent);color:#fff;transition:background .2s, transform .2s}
+.tarif-btn:hover{background:#0077ed;transform:scale(1.02)}
+.checkbox-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-top:.4rem}
+.checkbox-item{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.1rem;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.08);border-radius:14px;cursor:pointer;transition:all .2s ease;font-weight:500;font-size:.95rem}
+.checkbox-item:hover{background:#fff;border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.checkbox-item input{appearance:none;-webkit-appearance:none;width:1.2rem;height:1.2rem;border:2px solid #c7c7cc;border-radius:6px;background:#fff;display:grid;place-content:center;transition:all .2s ease}
+.checkbox-item input::before{content:"";width:.6rem;height:.6rem;transform:scale(0);transition:120ms transform cubic-bezier(0.16, 1, 0.3, 1);box-shadow:inset 1em 1em var(--accent);border-radius:2px}
+.checkbox-item input:checked::before{transform:scale(1)}
+.checkbox-item input:checked{border-color:var(--accent);background:rgba(0,113,227,0.08)}
+.checkbox-item.selected{background:rgba(0,113,227,0.06);border-color:var(--accent);color:var(--accent)}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.faq-card{padding:2rem;border-radius:24px}
+.faq-card h3{font:600 1.1rem var(--display);margin-bottom:.6rem;color:var(--ink)}
+.faq-card p{color:var(--soft);font-size:.95rem;line-height:1.6}
+.about-box{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center;padding:3rem;border-radius:28px;background:linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1452587925148-ce544e777ae0?auto=format&fit=crop&w=1200&q=80') center/cover;color:#fff}
+.about-box h2{color:#fff}
+.about-box p{color:rgba(255,255,255,0.9);margin-bottom:1.5rem}
+dialog.about-modal, dialog.legal-modal{border:0;padding:0;background:transparent;max-width:540px;width:90vw;margin:auto;border-radius:32px}
+dialog.about-modal::backdrop, dialog.legal-modal::backdrop{background:rgba(0,0,0,0.6);-webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px)}
+.modal-content{padding:2.5rem;background:rgba(255,255,255,0.85);-webkit-backdrop-filter:blur(40px) saturate(2);backdrop-filter:blur(40px) saturate(2);border:1px solid rgba(255,255,255,0.95);border-radius:32px;box-shadow:0 30px 60px rgba(0,0,0,0.15);text-align:left}
+.modal-content h3{font:700 1.8rem var(--display);margin-bottom:1rem;color:var(--ink);letter-spacing:-0.02em}
+.modal-content p{color:var(--soft);margin-bottom:1.2rem;font-size:1rem;line-height:1.6}
+.modal-close{margin-top:1.5rem;width:100%;text-align:center}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem}
+dialog.admin-modal{border:0;padding:0;background:transparent;max-width:600px;width:90vw;margin:auto;border-radius:32px}
+dialog.admin-modal::backdrop{background:rgba(0,0,0,0.7);-webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px)}
+.admin-content{padding:2.5rem;background:rgba(255,255,255,0.9);-webkit-backdrop-filter:blur(40px) saturate(2);backdrop-filter:blur(40px) saturate(2);border-radius:32px;box-shadow:0 30px 60px rgba(0,0,0,0.2)}
+.admin-list{max-height:300px;overflow-y:auto;margin:1.5rem 0;display:grid;gap:1rem}
+.admin-item{padding:1rem;border-radius:12px;background:rgba(0,0,0,0.03);display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem}
+.card{position:relative;border-radius:20px;overflow:hidden;cursor:zoom-in;clip-path:inset(0 0 100% 0 round 20px);transition:clip-path .9s cubic-bezier(0.16, 1, 0.3, 1)}
+.card.in{clip-path:inset(0 round 20px)}
+.card button{all:unset;display:block;width:100%;cursor:zoom-in}
+.card img,.ph{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;transform:scale(1.1);transition:transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)}
+.card.in img,.card.in .ph{transform:none}
+.card:hover img{transform:scale(1.04)}
+.ph{display:grid;place-items:center;padding:1rem;color:#fff;font-weight:600;font-size:.8rem;text-align:center;background:linear-gradient(135deg,#0071e3,#42a5f5)}
+.ph small{display:block;margin-top:.3rem;font-weight:400;font-size:.7rem;opacity:.8}
+.desc-card{padding:2rem;border-radius:20px;margin-bottom:2.5rem;background:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.9)}
+.desc-card h3{font:600 1.4rem var(--display);margin-bottom:.5rem;color:var(--accent)}
+.desc-card p{color:var(--soft);font-size:1.05rem}
+.contact-container{padding:3rem;border-radius:28px;background:rgba(255, 255, 255, 0.75);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);border:1px solid rgba(255, 255, 255, 0.9);box-shadow:0 30px 60px rgba(0,0,0,0.06)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.contact-info-list{display:grid;gap:1.5rem;margin-top:2rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem}
+.contact-item span{font-size:1.4rem}
+.contact-item h4{font:600 1rem var(--display);margin-bottom:.2rem}
+.contact-item a,.contact-item p{color:var(--soft);text-decoration:none;font-size:.95rem;transition:color .2s}
+.contact-item a:hover{color:var(--accent)}
+form{display:grid;gap:1.2rem}
+label{display:grid;gap:.4rem;font-weight:600;font-size:.88rem}
+input,select,textarea{font:400 1rem var(--text);color:var(--ink);padding:.75rem 1rem;border-radius:12px;border:1px solid rgba(0,0,0,0.1);background:rgba(255,255,255,0.7);transition:all .2s}
+input:focus,select:focus,textarea:focus{outline:none;background:#fff;border-color:var(--accent);box-shadow:0 0 0 4px rgba(0,113,227,0.15)}
+textarea{min-height:100px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.check{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.85rem;color:var(--soft)}
+.check input{margin-top:.2rem;width:1rem;height:1rem}
+.hp{position:absolute;left:-9999px}
+form button{all:unset;text-align:center;cursor:pointer;background:var(--accent);color:#fff;font-weight:600;padding:.9rem;border-radius:98px;transition:background .2s, transform .2s}
+form button:hover{background:#0077ed;transform:scale(1.01)}
+form button:disabled{opacity:.5}
+#status{min-height:1.4rem;font-weight:600;font-size:.9rem}
+footer{padding:3rem 0 4rem;text-align:center;color:var(--soft);font-size:.85rem}
+.footer-links{margin-top:.8rem;display:flex;justify-content:center;gap:1.5rem}
+.footer-links button{all:unset;cursor:pointer;color:var(--soft);transition:color .2s}
+.footer-links button:hover{color:var(--accent);text-decoration:underline}
+dialog#lb{border:0;padding:0;background:transparent;max-width:94vw;max-height:94vh;margin:auto;border-radius:20px}
+dialog#lb::backdrop{background:rgba(0,0,0,0.7);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+dialog#lb img{display:block;max-width:92vw;max-height:78vh;object-fit:contain;margin:0 auto;border-radius:16px}
+dialog#lb .bar{display:flex;justify-content:center;gap:.6rem;padding-top:1rem}
+dialog#lb .bar button{all:unset;cursor:pointer;padding:.5rem 1.2rem;border-radius:98px;background:rgba(255,255,255,0.15);color:#fff;font-weight:500;font-size:.9rem;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2)}
+dialog#lb .bar button:hover{background:rgba(255,255,255,0.3)}
+@media(max-width:760px){.contact-grid,.two,.about-box{grid-template-columns:1fr}nav .brand{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1,.chip,.pitch,.btns{opacity:1;transform:none}.card{clip-path:none}}
+nav .brand{font:700 0.95rem var(--display);padding:.5rem 1.1rem}
+.pagehead{padding:8rem 0 1rem}
+.back{display:inline-block;text-decoration:none;font-weight:600;padding:.5rem 1.1rem;border-radius:98px;margin-bottom:2rem;font-size:.9rem}
+.pagehead h1{font:700 clamp(2.4rem,8vw,5.5rem)/1 var(--display);letter-spacing:-0.03em}
+.pagehead p{color:var(--soft);max-width:32rem;margin-top:1rem;font-size:1.1rem}
+section.catpage{padding-top:2.5rem}
+.more{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2.5rem}
+.more a{text-decoration:none;font-weight:600;padding:.6rem 1.2rem;border-radius:98px;font-size:.9rem}
+h3.sub{font:700 1.2rem var(--display);margin:4rem 0 1rem}
+.featured{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.featured .card:nth-child(2){margin-top:2.5rem}
+@media(max-width:760px){.featured{grid-template-columns:1fr}.featured .card:nth-child(2){margin-top:0}}
+</style>
+</head>
+<body data-page="home">
+
+<div id="welcomeScreen">
+  <div class="welcome-card glass">
+    <div class="camera-icon">📸</div>
+    <h2>Bienvenue !</h2>
+    <p>Bienvenue sur mon portfolio. Je vous laisse découvrir mes photos et mes différents tarifs. N’hésitez pas à aller tout en bas de la page pour toute demande ou réservation.</p>
+    <button class="btn main" id="enterSite" style="width: 100%; cursor: pointer;">Entrer sur le site</button>
+  </div>
+</div>
+
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<nav id="nav" aria-label="Navigation principale"></nav>
+
+<div id="homeView"><header class="hero wrap">
+  <div class="vf glass">
+    <h1>Pierre<br>Gallois</h1>
+    <div class="chip">Photographe — Prestations professionnelles</div>
+    <p class="pitch" id="pitch"></p>
+    <div class="btns">
+      <a class="btn main" href="#catalogues">Découvrir mes photos</a>
+      <a class="btn glass" href="#contact">Me contacter</a>
+    </div>
+  </div>
+</header>
+<main>
+<section class="wrap" id="selection"><h2>Sélection</h2><p class="lead">Quelques clichés récents.</p><div class="featured" id="featured"></div></section>
+<section class="wrap" id="catalogues"><h2>Catalogues & Tarifs</h2><p class="lead">Explorez mes différents univers et leurs forfaits.</p><div class="tiles" id="tiles"></div></section>
+
+<section class="wrap" id="apropos">
+  <div class="about-box">
+    <div>
+      <h2>À propos de moi</h2>
+      <p>Passionné d'image et de nature, je capture des instants authentiques avec simplicité. Mon objectif est de vous offrir des souvenirs naturels sans poses forcées.</p>
+      <button class="btn main" id="openAbout">En savoir plus</button>
+    </div>
+  </div>
+</section>
+
+<dialog id="aboutModal" class="about-modal">
+  <div class="modal-content">
+    <h3>Mon parcours & ma vision</h3>
+    <p>Bonjour ! Je m'appelle Pierre Gallois, photographe passionné basé à Vouziers.</p>
+    <p>Je mets un point d'honneur à proposer des séances simples, détendues et à des tarifs accessibles pour permettre à tout le monde de s'offrir de beaux souvenirs.</p>
+    <p>Que ce soit pour un portrait, mettre en valeur une maison ou capturer un moment de vie, je privilégie toujours le naturel et la spontanéité.</p>
+    <div class="modal-close">
+      <button class="btn main" id="closeAbout" style="width: 100%;">Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="legalModal" class="legal-modal">
+  <div class="modal-content">
+    <h3>Mentions Légales</h3>
+    <p><strong>Éditeur du site :</strong><br>Pierre Gallois — Photographe<br>Basé à Vouziers (08400)<br>E-mail : pierrephoto08@gmail.com</p>
+    <p><strong>Hébergement :</strong><br>Ce site est hébergé par GitHub Pages.<br>GitHub, Inc. — 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</p>
+    <p><strong>Propriété intellectuelle :</strong><br>L'ensemble des photographies, textes et éléments visuels présents sur ce site sont la propriété exclusive de Pierre Gallois. Toute reproduction ou utilisation sans autorisation est interdite.</p>
+    <div class="modal-close">
+      <button class="btn main" id="closeLegal" style="width: 100%;">Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<section class="wrap" id="contact">
+  <h2>Contact & Réservation</h2>
+  <p class="lead">Une question ou une envie de séance ? Remplissez le formulaire ou contactez-moi directement.</p>
+  <div class="contact-container">
+    <div class="contact-grid">
+      <div>
+        <h3 style="font:600 1.3rem var(--display); margin-bottom:1rem;">Mes coordonnées</h3>
+        <p style="color:var(--soft); font-size:.95rem; line-height:1.6;">N'hésitez pas à m'envoyer un e-mail pour toute demande de renseignement.</p>
+        <div class="contact-info-list">
+          <div class="contact-item">
+            <span>✉️</span>
+            <div>
+              <h4>E-mail</h4>
+              <a id="mail"></a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span>📍</span>
+            <div>
+              <h4>Secteur</h4>
+              <p id="lieu"></p>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:.8rem; margin-top:2rem;">
+          <a class="btn main" id="mailBtn" style="padding:.6rem 1.2rem; font-size:.9rem;">Envoyer un e-mail</a>
+        </div>
+      </div>
+      <form id="form" novalidate style="padding:0; background:transparent; border:none; box-shadow:none;">
+        <div class="two">
+          <label>Nom<input name="nom" required autocomplete="family-name"></label>
+          <label>Prénom<input name="prenom" required autocomplete="given-name"></label>
+        </div>
+        <label>Téléphone<input name="tel" type="tel" required autocomplete="tel"></label>
+        <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+        <label>Confirmer l’e-mail (Vérification)<input name="email2" id="email2" type="email" required autocomplete="off" placeholder="Retapez votre adresse e-mail"></label>
+        <div class="hint" id="emailhint" aria-live="polite"></div>
+        <label>Sélectionnez vos prestations et options :
+          <div class="checkbox-group" id="checkboxGroup"></div>
+        </label>
+        <label>Votre message<textarea name="message" placeholder="Date, lieu ou précisions utiles…"></textarea></label>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="check"><input type="checkbox" name="ok" required>J’accepte d’être recontacté(e) par Pierre Gallois.</label>
+        <button type="submit" id="send">Envoyer ma demande</button>
+        <div id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<div id="faqView" hidden><header class="pagehead wrap">
+  <a class="back glass" href="#/">← Retour à l'accueil</a>
+  <h1>Foire Aux Questions</h1>
+  <p>Retrouvez les réponses aux questions les plus fréquentes concernant nos séances.</p>
+</header>
+<main>
+<section class="wrap catpage">
+  <div class="faq-grid">
+    <div class="faq-card glass">
+      <h3>Comment se passe la livraison des photos ?</h3>
+      <p>Vous recevrez un lien Google Drive sécurisé pour découvrir l'ensemble de vos photos, les télécharger et les imprimer par vous-même. Je propose également un service sur mesure pour recevoir vos photos directement chez vous par la poste (tirages seuls ou livre photo de qualité). Le délai de livraison dépend du nombre de clichés à retoucher et du format choisi (numérique ou physique).</p>
+    </div>
+    <div class="faq-card glass">
+      <h3>Comment s'habiller pour une séance ?</h3>
+      <p>Il n'y a pas de code vestimentaire imposé : venez comme vous êtes et dans des tenues où vous vous sentez à l'aise ! S'il s'agit d'une séance à thème particulier, vous êtes entièrement libre de composer votre style selon vos envies.</p>
+    </div>
+    <div class="faq-card glass">
+      <h3>Quels sont les modes de paiement acceptés ?</h3>
+      <p>Pour régler votre prestation, vous avez le choix entre plusieurs moyens de paiement : les espèces, la carte bancaire, les chèques ou le virement bancaire.</p>
+    </div>
+    <div class="faq-card glass">
+      <h3>Où ont lieu les séances photo ?</h3>
+      <p>Le lieu dépend entièrement de la formule choisie : les reportages pour les maisons et les commerces se font directement sur site. Pour les portraits, les séances peuvent se dérouler en extérieur dans un cadre naturel ou en intérieur selon vos préférences.</p>
+    </div>
+    <div class="faq-card glass">
+      <h3>Y a-t-il des frais de déplacement ?</h3>
+      <p>Étant basé à Vouziers, les frais kilométriques sont calculés en fonction de la distance de votre projet et vous sont directement communiqués et détaillés sur votre devis personnalisé.</p>
+    </div>
+    <div class="faq-card glass">
+      <h3>Peut-on reporter en cas de mauvaise météo ?</h3>
+      <p>Oui, tout à fait. Pour les séances en extérieur, si la météo est capricieuse ou en cas d'imprévu de dernière minute, nous pouvons sans problème reporter la séance à une date ultérieure.</p>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 4rem;">
+    <a class="btn main" href="#contact">Une autre question ? Contactez-moi</a>
+  </div>
+</section>
+</main>
+</div>
+
+<div id="avisView" hidden><header class="pagehead wrap">
+  <a class="back glass" href="#/">← Retour à l'accueil</a>
+  <h1>Avis clients</h1>
+  <p>Retrouvez l'historique complet des retours de tous les clients ayant fait confiance à nos services.</p>
+</header>
+<main>
+<section class="wrap catpage">
+  <div class="reviews-grid" id="allReviewsGrid"></div>
+  <div style="margin-top: 5rem;">
+    <h2>Laisser un avis</h2>
+    <p class="lead">Vous avez fait une séance avec moi ? Partagez votre expérience ! (Soumis à validation)</p>
+    <form class="glass" id="reviewForm" style="max-width: 700px;" novalidate>
+      <div class="two">
+        <label>Votre Nom<input name="rev_nom" required autocomplete="name"></label>
+        <label>Note (1 à 5 étoiles)
+          <select name="rev_note" required>
+            <option value="★★★★★">★★★★★ (5/5)</option>
+            <option value="★★★★☆">★★★★☆ (4/5)</option>
+            <option value="★★★☆☆">★★★☆☆ (3/5)</option>
+            <option value="★★☆☆☆">★★☆☆☆ (2/5)</option>
+            <option value="★☆☆☆☆">★☆☆☆☆ (1/5)</option>
+          </select>
+        </label>
+      </div>
+      <label>Votre commentaire<textarea name="rev_message" required placeholder="Votre avis sur la séance..."></textarea></label>
+      <button type="submit" id="sendRev">Envoyer mon avis</button>
+      <div id="revStatus" role="status" aria-live="polite" style="font-weight:600; font-size:.9rem; min-height:1.4rem;"></div>
+    </form>
+  </div>
+</section>
+</main>
+</div>
+
+<div id="catView" hidden><header class="pagehead wrap">
+  <a class="back glass" href="#catalogues">← Retour aux catalogues</a>
+  <h1 id="title">Portrait</h1>
+  <p id="desc"></p>
+</header>
+<main>
+<section class="wrap catpage">
+  <div class="desc-card glass" id="desccard"></div>
+  <div class="cat-grid" id="catgrid"></div>
+  <h3 class="sub">Autres catalogues</h3>
+  <div class="more" id="more"></div>
+  <a class="btn main" id="ctaLink">Réserver une séance</a>
+</section>
+</main>
+</div>
+
+<div id="tarifsView" hidden><header class="pagehead wrap">
+  <a class="back glass" href="#/">← Retour à l'accueil</a>
+  <h1>Grille des Tarifs & Options</h1>
+  <p>Découvrez l'ensemble de nos prestations professionnelles, durées moyennes et options personnalisées.</p>
+</header>
+<main>
+<section class="wrap catpage">
+  <div class="tarifs-grid" id="allTarifs"></div>
+  <div style="text-align: center; margin-top: 4rem;">
+    <a class="btn main" href="#contact">Réserver une prestation</a>
+  </div>
+</section>
+</main>
+</div>
+
+<dialog id="adminModal" class="admin-modal">
+  <div class="admin-content">
+    <h3>Gestionnaire d'avis (Admin)</h3>
+    <p style="color:var(--soft); font-size:.9rem;">Validez ou supprimez les avis stockés sur votre navigateur.</p>
+    <div class="admin-list" id="adminList"></div>
+    <div style="margin-top: 1.5rem; text-align: right;">
+      <button class="btn main" id="closeAdmin">Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<footer id="foot">
+  <div id="footText"></div>
+  <div class="footer-links">
+    <button id="openLegal">Mentions légales</button>
+  </div>
+</footer>
+
+<dialog id="lb" aria-label="Photo en grand"><img id="lbimg" alt=""><div class="bar"><button id="prev">Précédente</button><button id="next">Suivante</button><button id="close">Fermer</button></div></dialog>
+
+<script>
+const CONFIG = {
+  nom: "Pierre Gallois",
+  email: "pierrephoto08@gmail.com",
+  lieu: "Basé à Vouziers, déplacements possibles.",
+  pitch: "Des photos simples, naturelles et spontanées, sans prise de tête.",
+  formEndpoint: "https://formspree.io/f/xljgkvzp",
+  adminPass: "Alizee13082023"
+};
+
+const DEFAULT_AVIS = [
+  { id: 1, etoiles: "★★★★★", texte: "Super séance portrait ! Pierre met tout de suite à l'aise et les photos sont magnifiques.", auteur: "Lucas M.", visible: true },
+  { id: 2, etoiles: "★★★★★", texte: "Très pro pour les photos de notre maison, un grand merci pour la rapidité.", auteur: "Sophie D.", visible: true }
+];
+
+function getAvis() {
+  const saved = localStorage.getItem("pierre_avis");
+  if (!saved) {
+    localStorage.setItem("pierre_avis", JSON.stringify(DEFAULT_AVIS));
+    return DEFAULT_AVIS;
+  }
+  return JSON.parse(saved);
+}
+
+const FEATURED = ["DSC02774.jpg", "DSC02758.jpg"];
+
+const CATALOGUES = [
+  { id: "portrait", nom: "Portrait", prix: "25 €", desc: "Séances individuelles, profil pro ou souvenirs persos.", detail: "Durée moyenne : 45 minutes. Comprend un pack de 5 photos retouchées en haute qualité.", photos: ["DSC02740-2.jpg", "DSC02758.jpg", "DSC02759.jpg"] },
+  { id: "maison", nom: "Maison / Immobilier", prix: "60 €", desc: "Mise en valeur d'intérieurs et d'extérieurs.", detail: "Durée moyenne : 1h30 sur place. Comprend un pack de 12 à 20 photos retouchées pour couvrir l'ensemble des pièces et extérieurs.", photos: ["DSC02774.jpg", "DSC02792.jpg", "DSC02794.jpg"] },
+  { id: "commerce", nom: "Commerce", prix: "60 €", desc: "Boutiques, produits et artisans locaux.", detail: "Durée moyenne : 1h à 2h. Comprend un pack de 12 à 15 photos professionnelles (produits, ambiance, équipe).", photos: [] },
+  { id: "evenement", nom: "Événement", prix: "Sur devis", desc: "Petites fêtes, moments de vie et rencontres.", detail: "Durée variable selon l'événement. Couverture complète et livraison rapide des clichés.", photos: [] },
+  { id: "tirage", nom: "Option Tirages Immédiats", prix: "+ 5 €", desc: "Impression physique instantanée avec mon imprimante mobile Canon.", detail: "Idéal pour repartir avec 3 tirages photo format 10x15 cm directement à la fin de la séance ou de l'événement.", photos: [], notCatalog: true },
+  { id: "book", nom: "Book / Livre Photo", prix: "Sur devis", desc: "Création d'un bel album photo relié via un site partenaire.", detail: "Idéal pour conserver vos souvenirs dans un livre de qualité professionnelle (commandé sur mesure).", photos: [], notCatalog: true },
+  { id: "street", nom: "Street photo", prix: "Don libre", desc: "Instants volés au cœur de la ville.", detail: "Durée libre. Balade photographique urbaine à la découverte des lumières et des gens.", photos: [], notTarif: true }
+];
+
+const $ = id => document.getElementById(id);
+
+document.getElementById("enterSite").onclick = () => {
+  document.getElementById("welcomeScreen").classList.add("fade-out");
+};
+
+const modal = document.getElementById("aboutModal");
+document.getElementById("openAbout").onclick = () => modal.showModal();
+document.getElementById("closeAbout").onclick = () => modal.close();
+modal.onclick = e => { if (e.target === modal) modal.close(); };
+
+const legalModal = document.getElementById("legalModal");
+document.getElementById("openLegal").onclick = () => legalModal.showModal();
+document.getElementById("closeLegal").onclick = () => legalModal.close();
+legalModal.onclick = e => { if (e.target === legalModal) legalModal.close(); };
+
+$("footText").textContent = "© " + new Date().getFullYear() + " " + CONFIG.nom + " — Tous droits réservés";
+
+$("foot").onclick = (e) => {
+  if (e.target.id === "openLegal") return;
+  const p = prompt("Code secret administrateur :");
+  if (p === CONFIG.adminPass) {
+    openAdminPanel();
+  } else if (p !== null) {
+    alert("Code incorrect.");
+  }
+};
+
+function openAdminPanel() {
+  const listEl = $("adminList");
+  const allAvis = getAvis();
+  if (allAvis.length === 0) {
+    listEl.innerHTML = "<p>Aucun avis pour le moment.</p>";
+  } else {
+    listEl.innerHTML = allAvis.map(a => `
+      <div class="admin-item">
+        <div>
+          <strong>${a.auteur}</strong> (${a.etoiles})<br>
+          <small style="color:var(--soft);">${a.texte}</small>
+        </div>
+        <div style="display:flex; gap:.5rem;">
+          <button class="btn ${a.visible ? 'glass' : 'main'}" onclick="toggleAvis(${a.id})" style="padding:.4rem .8rem; font-size:.8rem;">${a.visible ? 'Masquer' : 'Valider'}</button>
+          <button class="btn glass" onclick="deleteAvis(${a.id})" style="padding:.4rem .8rem; font-size:.8rem; color:#ff3b30;">Supprimer</button>
+        </div>
+      </div>
+    `).join("");
+  }
+  $("adminModal").showModal();
+}
+
+window.toggleAvis = function(id) {
+  let allAvis = getAvis();
+  allAvis = allAvis.map(a => a.id === id ? { ...a, visible: !a.visible } : a);
+  localStorage.setItem("pierre_avis", JSON.stringify(allAvis));
+  openAdminPanel();
+  renderAllReviews();
+};
+
+window.deleteAvis = function(id) {
+  if (confirm("Voulez-vous vraiment supprimer cet avis ?")) {
+    let allAvis = getAvis();
+    allAvis = allAvis.filter(a => a.id !== id);
+    localStorage.setItem("pierre_avis", JSON.stringify(allAvis));
+    openAdminPanel();
+    renderAllReviews();
+  }
+};
+
+$("closeAdmin").onclick = () => $("adminModal").close();
+
+const mainCatalogues = CATALOGUES.filter(c => !c.notCatalog);
+
+$("nav").innerHTML = `<a class="brand" href="#/">P. Gallois</a>
+<div class="dd" id="dd"><button type="button" aria-haspopup="true" aria-expanded="false" id="ddbtn">Catalogues ▾</button>
+<div class="menu">${mainCatalogues.map(c => `<a href="#/${c.id}">${c.nom}</a>`).join("")}</div></div>
+<a href="#/tarifs">Tarifs</a><a href="#/faq">FAQ</a><a href="#/avis">Avis</a><a class="cta" href="#contact">Contact</a>`;
+addEventListener("load", () => setTimeout(() => document.body.classList.add("on"), 150));
+$("ddbtn").onclick = e => { const o = $("dd").classList.toggle("open"); e.target.setAttribute("aria-expanded", o); };
+document.addEventListener("click", e => { if (!$("dd").contains(e.target)) $("dd").classList.remove("open"); });
+
+const place = (i, file) => {
+  const d = document.createElement("div"); d.className = "ph";
+  d.innerHTML = "Photo bientôt disponible" + (file ? `<small>${file}</small>` : ""); return d;
+};
+const media = (file, i, alt) => {
+  if (!file) return place(i, "");
+  const img = new Image(); img.src = "photos/" + file; img.alt = alt; img.loading = "lazy";
+  img.onerror = () => img.replaceWith(place(i, file)); return img;
+};
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+let list = [], cur = 0; const lb = $("lb");
+const card = (file, i, alt, arr, idx) => {
+  const fig = document.createElement("figure"); fig.className = "card glass";
+  const b = document.createElement("button"); b.setAttribute("aria-label", "Agrandir : " + alt);
+  b.append(media(file, i, alt));
+  if (file) b.onclick = () => { list = arr; open(idx); };
+  fig.append(b); io.observe(fig); return fig;
+};
+const open = i => {
+  cur = (i + list.length) % list.length; $("lbimg").src = "photos/" + list[cur];
+  if (!lb.open) lb.showModal();
+};
+$("prev").onclick = () => open(cur - 1); $("next").onclick = () => open(cur + 1); $("close").onclick = () => lb.close();
+lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+document.addEventListener("keydown", e => { if (!lb.open) return; if (e.key === "ArrowLeft") open(cur - 1); if (e.key === "ArrowRight") open(cur + 1); });
+
+function renderHome() {
+  $("pitch").textContent = CONFIG.pitch;
+  if (FEATURED.length) FEATURED.forEach((f, i) => $("featured").append(card(f, i, "Photo " + (i + 1), FEATURED, i)));
+  else $("selection").remove();
+
+  $("tiles").innerHTML = "";
+  mainCatalogues.forEach((c, i) => {
+    const t = document.createElement("a"); t.className = "tile glass"; t.href = "#/" + c.id;
+    const cov = document.createElement("div"); cov.className = "cover"; cov.append(media(c.photos[0], i, c.nom));
+    t.append(cov); t.insertAdjacentHTML("beforeend", `<h3>${c.nom} <span>${c.prix}</span></h3><p>${c.desc}</p>`); $("tiles").append(t);
+  });
+
+  $("mail").textContent = CONFIG.email; $("mail").href = "mailto:" + CONFIG.email;
+  $("lieu").textContent = CONFIG.lieu;
+  $("mailBtn").href = "mailto:" + CONFIG.email;
+
+  $("checkboxGroup").innerHTML = CATALOGUES.filter(c => !c.notTarif).map(c => `
+    <label class="checkbox-item">
+      <span>${c.nom} <small style="color:var(--soft); font-weight:400;">(${c.prix})</small></span>
+      <input type="checkbox" name="choix[]" value="${c.nom} (${c.prix})">
+    </label>
+  `).join("");
+
+  document.querySelectorAll('.checkbox-item input').forEach(input => {
+    input.addEventListener('change', e => {
+      if(e.target.checked) {
+        e.target.closest('.checkbox-item').classList.add('selected');
+      } else {
+        e.target.closest('.checkbox-item').classList.remove('selected');
+      }
+    });
+  });
+
+  const em = document.querySelector("[name=email]"), em2 = $("email2"), hint = $("emailhint");
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function checkMail() {
+    const a = em.value.trim().toLowerCase(), b = em2.value.trim().toLowerCase();
+    let msg = "", cls = "hint";
+    if (a && !re.test(a)) { msg = "Format d'e-mail invalide."; cls = "hint bad"; }
+    else if (b && a !== b) { msg = "❌ Les deux adresses e-mail ne correspondent pas."; cls = "hint bad"; }
+    else if (b) { msg = "✓ Les adresses e-mail correspondent parfaitement."; cls = "hint good"; }
+    hint.textContent = msg; hint.className = cls;
+    em.setCustomValidity(a && !re.test(a) ? msg : "");
+    em2.setCustomValidity(b && a !== b ? "Erreur de correspondance" : "");
+  }
+  em.addEventListener("input", checkMail); em2.addEventListener("input", checkMail);
+  em2.addEventListener("paste", e => e.preventDefault());
+
+  $("form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = e.target, st = $("status");
+    checkMail();
+    if (!f.reportValidity()) return;
+    
+    const checkedBoxes = Array.from(f.querySelectorAll('input[name="choix[]"]:checked')).map(cb => cb.value);
+    const optionsChoisies = checkedBoxes.length ? checkedBoxes.join(", ") : "Aucune sélection spécifique";
+
+    const d = Object.fromEntries(new FormData(f));
+    if (d.website) return;
+    delete d.email2;
+    
+    const sujet = "Contact Portfolio : Demande de réservation";
+    
+    if (CONFIG.formEndpoint) {
+      $("send").disabled = true; st.textContent = "Envoi en cours...";
+      try {
+        const r = await fetch(CONFIG.formEndpoint, { 
+          method: "POST", 
+          headers: { "Content-Type": "application/json", "Accept": "application/json" }, 
+          body: JSON.stringify({ ...d, choix: optionsChoisies, _subject: sujet }) 
+        });
+        if (!r.ok) throw 0;
+        st.textContent = "Merci ! Votre message a bien été envoyé. Je vous recontacte vite."; 
+        f.reset(); 
+        document.querySelectorAll('.checkbox-item').forEach(el => el.classList.remove('selected'));
+        checkMail();
+      } catch { 
+        st.textContent = "L'envoi a échoué. Contactez-moi par e-mail à " + CONFIG.email; 
+      }
+      $("send").disabled = false;
+    } else {
+      const corps = `Nom : ${d.nom}\nPrénom : ${d.prenom}\nTéléphone : ${d.tel}\nE-mail : ${d.email}\nSélection : ${optionsChoisies}\n\nMessage :\n${d.message || ""}`;
+      location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+      st.textContent = "Votre messagerie va s'ouvrir pour finaliser l'envoi.";
+    }
+  });
+}
+
+function renderAllReviews() {
+  document.title = "Avis clients – " + CONFIG.nom;
+  const visibles = getAvis().filter(a => a.visible);
+  if (visibles.length) {
+    $("allReviewsGrid").innerHTML = visibles.map(a => `
+      <div class="review-card glass" style="max-width:none;">
+        <div class="review-stars">${a.etoiles}</div>
+        <p>"${a.texte}"</p>
+        <div class="review-author">— ${a.auteur}</div>
+      </div>
+    `).join("");
+  } else {
+    $("allReviewsGrid").innerHTML = "<p style='color:var(--soft);'>Aucun avis pour le moment.</p>";
+  }
+
+  const revForm = $("reviewForm");
+  if (revForm && !revForm.dataset.listener) {
+    revForm.dataset.listener = "true";
+    revForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const f = e.target, st = $("revStatus");
+      if (!f.reportValidity()) return;
+
+      const newReview = {
+        id: Date.now(),
+        etoiles: f.rev_note.value,
+        texte: f.rev_message.value,
+        auteur: f.rev_nom.value,
+        visible: false
+      };
+
+      const allAvis = getAvis();
+      allAvis.push(newReview);
+      localStorage.setItem("pierre_avis", JSON.stringify(allAvis));
+
+      st.textContent = "Merci ! Votre avis a bien été envoyé et sera publié après validation.";
+      f.reset();
+    });
+  }
+}
+
+function renderCat(pageId) {
+  const ci = Math.max(0, CATALOGUES.findIndex(x => x.id === pageId)), c = CATALOGUES[ci];
+  document.title = c.nom + " – " + CONFIG.nom;
+  $("title").textContent = c.nom + " (" + c.prix + ")"; $("desc").textContent = c.desc;
+  $("desccard").innerHTML = `<h3>Détails de la prestation</h3><p>${c.detail}</p>`;
+  $("catgrid").innerHTML = "";
+  (c.photos.length ? c.photos : [null, null, null]).forEach((f, i) => $("catgrid").append(card(f, ci + i, c.nom + " " + (i + 1), c.photos, i)));
+  $("more").innerHTML = mainCatalogues.filter(x => x.id !== c.id).map(x => `<a class="glass" href="#/${x.id}">${x.nom}</a>`).join("");
+  $("ctaLink").href = "#contact";
+}
+
+function renderTarifs() {
+  document.title = "Tarifs & Prestations – " + CONFIG.nom;
+  const tarifsList = CATALOGUES.filter(c => !c.notTarif);
+  $("allTarifs").innerHTML = tarifsList.map(c => `
+    <div class="tarif-card glass">
+      <div>
+        <div class="tarif-header">
+          <h3>${c.nom}</h3>
+          <div class="tarif-price">${c.prix}</div>
+        </div>
+        <p class="tarif-desc">${c.desc}</p>
+        <div class="tarif-detail">${c.detail}</div>
+      </div>
+      <a class="tarif-btn" href="#contact">Réserver cette formule</a>
+    </div>
+  `).join("");
+}
+
+function route() {
+  const hash = location.hash;
+  const isTarifs = hash === "#/tarifs";
+  const isFaq = hash === "#/faq";
+  const isAvis = hash === "#/avis";
+  const m = hash.match(/^#\/(\w+)/);
+  const c = m && CATALOGUES.find(x => x.id === m[1]);
+
+  $("homeView").hidden = isTarifs || isFaq || isAvis || !!c; 
+  $("catView").hidden = !c;
+  $("tarifsView").hidden = !isTarifs;
+  $("faqView").hidden = !isFaq;
+  $("avisView").hidden = !isAvis;
+
+  if (isTarifs) {
+    renderTarifs();
+    scrollTo(0, 0);
+  } else if (isFaq) {
+    document.title = "FAQ – " + CONFIG.nom;
+    scrollTo(0, 0);
+  } else if (isAvis) {
+    renderAllReviews();
+    scrollTo(0, 0);
+  } else if (c) {
+    renderCat(c.id);
+    scrollTo(0, 0);
+  } else {
+    const el = hash.length > 2 ? document.getElementById(hash.slice(1)) : null;
+    if (el) el.scrollIntoView();
+    else scrollTo(0, 0);
+  }
+}
+renderHome(); addEventListener("hashchange", route); route();
+</script>
+</body>
+</html>
