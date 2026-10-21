@@ -434,7 +434,7 @@ const CATALOGUES = [
   { id: "portrait", nom: "Portrait", prix: "25 €", desc: "Séances individuelles, profil pro ou souvenirs persos.", detail: "Durée moyenne : 45 minutes. Comprend un pack de 5 photos retouchées en haute qualité.", photos: ["DSC02740-2.jpg", "DSC02758.jpg", "DSC02759.jpg"] },
   { id: "maison", nom: "Maison / Immobilier", prix: "60 €", desc: "Mise en valeur d'intérieurs et d'extérieurs.", detail: "Durée moyenne : 1h30 sur place. Comprend un pack de 12 à 20 photos retouchées pour couvrir l'ensemble des pièces et extérieurs.", photos: ["DSC02774.jpg", "DSC02792.jpg", "DSC02794.jpg"] },
   { id: "commerce", nom: "Commerce", prix: "60 €", desc: "Boutiques, produits et artisans locaux.", detail: "Durée moyenne : 1h à 2h. Comprend un pack de 12 à 15 photos professionnelles (produits, ambiance, équipe).", photos: [] },
-  { id: "evenement", nom: "Événement", prix: "Sur devis", desc: "Petites fêtes, moments de vie et rencontres.", detail: "Durée variable selon l'événement. Couverture complète et livraison rapide des clichés.", photos: ["anniversairehelene/DSC03136.jpg", "anniversairehelene/DSC03149.jpg", "anniversairehelene/DSC03245.jpg", "anniversairehelene/DSC03247.jpg"] },
+  { id: "evenement", nom: "Événement", prix: "Sur devis", desc: "Petites fêtes, moments de vie et rencontres.", detail: "Durée variable selon l'événement. Couverture complète et livraison rapide des clichés.", photos: ["anniversairehelene/DSC03136.jpeg", "anniversairehelene/DSC03149.jpeg", "anniversairehelene/DSC03245.jpeg", "anniversairehelene/DSC03247.jpeg"] },
   { id: "tirage", nom: "Option Tirages Immédiats", prix: "+ 5 €", desc: "Impression physique instantanée avec mon imprimante mobile Canon.", detail: "Idéal pour repartir avec 3 tirages photo format 10x15 cm directement à la fin de la séance ou de l'événement.", photos: [], notCatalog: true },
   { id: "book", nom: "Book / Livre Photo", prix: "Sur devis", desc: "Création d'un bel album photo relié via un site partenaire.", detail: "Idéal pour conserver vos souvenirs dans un livre de qualité professionnelle (commandé sur mesure).", photos: [], notCatalog: true },
   { id: "street", nom: "Street photo", prix: "Don libre", desc: "Instants volés au cœur de la ville.", detail: "Durée libre. Balade photographique urbaine à la découverte des lumières et des gens.", photos: [], notTarif: true }
@@ -718,25 +718,4 @@ function route() {
   $("faqView").hidden = !isFaq;
   $("avisView").hidden = !isAvis;
 
-  if (isTarifs) {
-    renderTarifs();
-    scrollTo(0, 0);
-  } else if (isFaq) {
-    document.title = "FAQ – " + CONFIG.nom;
-    scrollTo(0, 0);
-  } else if (isAvis) {
-    renderAllReviews();
-    scrollTo(0, 0);
-  } else if (c) {
-    renderCat(c.id);
-    scrollTo(0, 0);
-  } else {
-    const el = hash.length > 2 ? document.getElementById(hash.slice(1)) : null;
-    if (el) el.scrollIntoView();
-    else scrollTo(0, 0);
-  }
-}
-renderHome(); addEventListener("hashchange", route); route();
-</script>
-</body>
-</html>
+  ...
