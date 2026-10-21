@@ -434,7 +434,7 @@ const CATALOGUES = [
   { id: "portrait", nom: "Portrait", prix: "25 €", desc: "Séances individuelles, profil pro ou souvenirs persos.", detail: "Durée moyenne : 45 minutes. Comprend un pack de 5 photos retouchées en haute qualité.", photos: ["DSC02740-2.jpg", "DSC02758.jpg", "DSC02759.jpg"] },
   { id: "maison", nom: "Maison / Immobilier", prix: "60 €", desc: "Mise en valeur d'intérieurs et d'extérieurs.", detail: "Durée moyenne : 1h30 sur place. Comprend un pack de 12 à 20 photos retouchées pour couvrir l'ensemble des pièces et extérieurs.", photos: ["DSC02774.jpg", "DSC02792.jpg", "DSC02794.jpg"] },
   { id: "commerce", nom: "Commerce", prix: "60 €", desc: "Boutiques, produits et artisans locaux.", detail: "Durée moyenne : 1h à 2h. Comprend un pack de 12 à 15 photos professionnelles (produits, ambiance, équipe).", photos: [] },
-  { id: "evenement", nom: "Événement", prix: "Sur devis", desc: "Petites fêtes, moments de vie et rencontres.", detail: "Durée variable selon l'événement. Couverture complète et livraison rapide des clichés.", photos: ["anniversairehelene/DSC03136.jpeg", "anniversairehelene/DSC03149.jpeg", "anniversairehelene/DSC03245.jpeg", "anniversairehelene/DSC03247.jpeg"] },
+  { id: "evenement", nom: "Événement", prix: "Sur devis", desc: "Petites fêtes, moments de vie et rencontres.", detail: "Durée variable selon l'événement. Couverture complète et livraison rapide des clichés.", photos: ["photos/anniversairehelene/DSC03136.jpeg", "photos/anniversairehelene/DSC03149.jpeg", "photos/anniversairehelene/DSC03245.jpeg", "photos/anniversairehelene/DSC03247.jpeg"] },
   { id: "tirage", nom: "Option Tirages Immédiats", prix: "+ 5 €", desc: "Impression physique instantanée avec mon imprimante mobile Canon.", detail: "Idéal pour repartir avec 3 tirages photo format 10x15 cm directement à la fin de la séance ou de l'événement.", photos: [], notCatalog: true },
   { id: "book", nom: "Book / Livre Photo", prix: "Sur devis", desc: "Création d'un bel album photo relié via un site partenaire.", detail: "Idéal pour conserver vos souvenirs dans un livre de qualité professionnelle (commandé sur mesure).", photos: [], notCatalog: true },
   { id: "street", nom: "Street photo", prix: "Don libre", desc: "Instants volés au cœur de la ville.", detail: "Durée libre. Balade photographique urbaine à la découverte des lumières et des gens.", photos: [], notTarif: true }
@@ -442,9 +442,9 @@ const CATALOGUES = [
 
 const $ = id => document.getElementById(id);
 
-document.getElementById("enterSite").onclick = () => {
+document.getElementById("enterSite").addEventListener("click", () => {
   document.getElementById("welcomeScreen").classList.add("fade-out");
-};
+});
 
 const modal = document.getElementById("aboutModal");
 document.getElementById("openAbout").onclick = () => modal.showModal();
@@ -526,7 +526,7 @@ const place = (i, file) => {
 };
 const media = (file, i, alt) => {
   if (!file) return place(i, "");
-  const img = new Image(); img.src = "photos/" + file; img.alt = alt; img.loading = "lazy";
+  const img = new Image(); img.src = file; img.alt = alt; img.loading = "lazy";
   img.onerror = () => img.replaceWith(place(i, file)); return img;
 };
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
@@ -539,7 +539,7 @@ const card = (file, i, alt, arr, idx) => {
   fig.append(b); io.observe(fig); return fig;
 };
 const open = i => {
-  cur = (i + list.length) % list.length; $("lbimg").src = "photos/" + list[cur];
+  cur = (i + list.length) % list.length; $("lbimg").src = list[cur];
   if (!lb.open) lb.showModal();
 };
 $("prev").onclick = () => open(cur - 1); $("next").onclick = () => open(cur + 1); $("close").onclick = () => lb.close();
@@ -718,4 +718,15 @@ function route() {
   $("faqView").hidden = !isFaq;
   $("avisView").hidden = !isAvis;
 
-  ...
+  if (!isTarifs && !isFaq && !isAvis && !c) renderHome();
+  else if (c) renderCat(m[1]);
+  else if (isAvis) renderAllReviews();
+  else if (isTarifs) renderTarifs();
+  window.scrollTo(0, 0);
+}
+
+window.addEventListener("hashchange", route);
+window.addEventListener("load", route);
+</script>
+</body>
+</html>
